@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 
 export default function ResponsiveNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,7 +23,7 @@ export default function ResponsiveNavbar() {
         <div className="flex items-center gap-3">
           {/* REMOVED 'hidden lg:block' from the Link */}
           <Link href="/" className="block"> 
-          <img 
+          <Image 
             src="/Nova2.png" 
             alt="Nova Exam Services" 
             className="h-16 w-auto max-h-12 object-contain sm:h-20 sm:max-h-16"
