@@ -1,13 +1,10 @@
 'use client';
 import Image from "next/image";
-import Link from "next/link";
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { MessageCircle, Star, Users, Award, Clock, BookOpen, CheckCircle2, ArrowRight, Play } from "lucide-react";
-import { useState, useEffect } from "react";
 import HeroSection from "@/components/ui/Hero";
 
 export default function Home() {
@@ -345,7 +342,7 @@ export default function Home() {
               >
                 <Card className="h-full bg-card/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                   <CardContent className="p-6">
-                    <div className="text-4xl text-primary/60 mb-4">"</div>
+                    <div className="text-4xl text-primary/60 mb-4">&quot;</div>
                     <p className="text-foreground leading-relaxed mb-6 italic">
                       {testimonial.quote}
                     </p>

@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Phone, Mail, Clock, Send, MessageCircle, Users, CheckCircle2 } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Send, MessageCircle,  CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 
 export default function ContactPage() {
@@ -61,7 +61,7 @@ export default function ContactPage() {
             Contact <span className="text-primary">Our Team</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            We're here to help you with any questions about exam booking, preparation, or support.
+            We&apos;re here to help you with any questions about exam booking, preparation, or support.
           </p>
         </div>
 
@@ -154,7 +154,7 @@ export default function ContactPage() {
                 Send Us a Message
               </CardTitle>
               <CardDescription>
-                Fill out the form below and we'll get back to you within 24 hours
+                Fill out the form below and we&apos;ll get back to you within 24 hours
               </CardDescription>
             </CardHeader>
             <CardContent className="p-6">
