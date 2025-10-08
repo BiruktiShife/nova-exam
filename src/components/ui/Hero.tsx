@@ -34,7 +34,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative h-[50vh] sm:h-[60vh] md:h-[70vh] lg:min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative h-[60vh] sm:h-[70vh] md:min-h-screen flex items-center justify-center overflow-hidden">
       
       {/* Background Images */}
       <div className="absolute inset-0">
@@ -63,8 +63,8 @@ export default function Hero() {
         <div className="max-w-4xl mx-auto w-full px-2 sm:px-4">
           
           {/* Enhanced Main Heading - Same text size */}
-          <div className="mb-2 sm:mb-8">
-            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white mb-1 sm:mb-4 leading-tight">
+          <div className="mb-3 sm:mb-8">
+            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white mb-2 sm:mb-4 leading-tight">
               <span className="block bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent drop-shadow-lg">
                 Unlock Your
               </span>
@@ -84,21 +84,21 @@ export default function Hero() {
           </div>
 
           {/* Enhanced Description - Same text size */}
-          <div className="mb-2 sm:mb-12 max-w-3xl mx-auto">
-            <p className="text-sm sm:text-xl md:text-2xl lg:text-3xl text-white/95 font-light mb-1 sm:mb-6 leading-relaxed text-center bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent">
+          <div className="mb-3 sm:mb-12 max-w-3xl mx-auto">
+            <p className="text-sm sm:text-xl md:text-2xl lg:text-3xl text-white/95 font-light mb-2 sm:mb-6 leading-relaxed text-center bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent">
               {backgroundImages[currentImageIndex].description}
             </p>
           </div>
 
           {/* Trust Indicators - Same text size */}
-          <div className="bg-white/5 backdrop-blur-xl rounded-xl sm:rounded-3xl p-2 sm:p-8 border border-white/10 shadow-xl max-w-md mx-auto mb-2 sm:mb-12">
+          <div className="bg-white/5 backdrop-blur-xl rounded-xl sm:rounded-3xl p-3 sm:p-8 border border-white/10 shadow-xl max-w-md mx-auto mb-3 sm:mb-12">
             <div className="text-center">
-              <p className="text-white/80 text-xs sm:text-lg font-medium mb-1 sm:mb-4 flex items-center justify-center gap-1 sm:gap-2 flex-wrap">
+              <p className="text-white/80 text-xs sm:text-lg font-medium mb-2 sm:mb-4 flex items-center justify-center gap-1 sm:gap-2 flex-wrap">
                 <span className="text-base sm:text-2xl">🏆</span>
                 Trusted by 10,000+ Students
                 <span className="text-base sm:text-2xl">🌍</span>
               </p>
-              <div className="flex flex-wrap justify-center gap-1 sm:gap-6 text-white/70 text-xs sm:text-sm">
+              <div className="flex flex-wrap justify-center gap-2 sm:gap-6 text-white/70 text-xs sm:text-sm">
                 <span className="flex items-center gap-1">
                   <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
                   Verified Results
