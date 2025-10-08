@@ -17,12 +17,17 @@ export default function ResponsiveNavbar() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded bg-primary" />
-        <Link href="/">
-          <span className="font-semibold">Nova Exam Services</span></Link> 
+      <div className="container mx-auto px-4 py-2 flex items-center justify-between">
+        {/* Logo - Much larger and visible on mobile */}
+        <div className="flex items-center gap-3">
+          {/* REMOVED 'hidden lg:block' from the Link */}
+          <Link href="/" className="block"> 
+          <img 
+            src="/nova2.png" 
+            alt="Nova Exam Services" 
+            className="h-16 w-auto max-h-12 object-contain sm:h-20 sm:max-h-16"
+          />
+          </Link> 
         </div>
 
         {/* Desktop Navigation */}
