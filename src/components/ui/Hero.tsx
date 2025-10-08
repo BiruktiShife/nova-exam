@@ -34,91 +34,94 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative h-[50vh] sm:h-[60vh] md:h-[70vh] lg:min-h-screen flex items-center justify-center overflow-hidden">
       
-      {/* FALLBACK GRADIENT BACKGROUND - This will always work */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${backgroundImages[currentImageIndex].color}`}>
-        {/* Try to load image as background */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${backgroundImages[currentImageIndex].src})` }}
-        ></div>
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/50"></div>
+      {/* Background Images */}
+      <div className="absolute inset-0">
+        {backgroundImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            {/* Background Image */}
+            <img
+              src={image.src}
+              alt={image.title}
+              className="w-full h-full object-cover object-center"
+              loading="eager"
+            />
+            {/* Dark overlay */}
+            <div className="absolute inset-0 bg-black/50"></div>
+          </div>
+        ))}
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 text-center relative z-10">
-        <div className="max-w-4xl mx-auto">
+      <div className="container mx-auto px-4 text-center relative z-10 w-full">
+        <div className="max-w-4xl mx-auto w-full px-2 sm:px-4">
           
-          {/* Title Badge */}
-          {/* Enhanced Title Badge with Icon */}
+          {/* Enhanced Main Heading - Same text size */}
+          <div className="mb-2 sm:mb-8">
+            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white mb-1 sm:mb-4 leading-tight">
+              <span className="block bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent drop-shadow-lg">
+                Unlock Your
+              </span>
+              <span className="block bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 bg-clip-text text-transparent mt-1 sm:mt-2">
+                Dream Score
+              </span>
+            </h1>
+            
+            {/* Sub-heading - Same text size */}
+            <div className="flex items-center justify-center gap-1 sm:gap-3 mt-1 sm:mt-4">
+              <div className="w-2 sm:w-4 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
+              <p className="text-blue-200 font-semibold text-xs sm:text-lg uppercase tracking-wide sm:tracking-widest whitespace-nowrap px-1">
+                Success • Results
+              </p>
+              <div className="w-2 sm:w-4 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></div>
+            </div>
+          </div>
 
+          {/* Enhanced Description - Same text size */}
+          <div className="mb-2 sm:mb-12 max-w-3xl mx-auto">
+            <p className="text-sm sm:text-xl md:text-2xl lg:text-3xl text-white/95 font-light mb-1 sm:mb-6 leading-relaxed text-center bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent">
+              {backgroundImages[currentImageIndex].description}
+            </p>
+          </div>
 
-{/* Enhanced Main Heading with Gradient Effects */}
-<div className="mb-8">
-  <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-4 leading-none tracking-tight">
-    <span className="block bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent drop-shadow-2xl">
-      Unlock Your
-    </span>
-    <span className="block bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 bg-clip-text text-transparent mt-2 md:mt-4 drop-shadow-2xl">
-      Dream Score
-    </span>
-  </h1>
-  
-  {/* Sub-heading */}
-  <div className="flex items-center justify-center gap-3 mt-4">
-    <div className="w-4 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
-    <p className="text-blue-200 font-semibold text-lg md:text-xl uppercase tracking-widest">
-      Guaranteed Success • Proven Results
-    </p>
-    <div className="w-4 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></div>
-  </div>
-</div>
+          {/* Trust Indicators - Same text size */}
+          <div className="bg-white/5 backdrop-blur-xl rounded-xl sm:rounded-3xl p-2 sm:p-8 border border-white/10 shadow-xl max-w-md mx-auto mb-2 sm:mb-12">
+            <div className="text-center">
+              <p className="text-white/80 text-xs sm:text-lg font-medium mb-1 sm:mb-4 flex items-center justify-center gap-1 sm:gap-2 flex-wrap">
+                <span className="text-base sm:text-2xl">🏆</span>
+                Trusted by 10,000+ Students
+                <span className="text-base sm:text-2xl">🌍</span>
+              </p>
+              <div className="flex flex-wrap justify-center gap-1 sm:gap-6 text-white/70 text-xs sm:text-sm">
+                <span className="flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
+                  Verified Results
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span>
+                  Expert Tutors
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse"></span>
+                  Guarantee
+                </span>
+              </div>
+            </div>
+          </div>
 
-{/* Enhanced Description with Features */}
-<div className="mb-12 max-w-4xl mx-auto">
-  <p className="text-2xl md:text-3xl lg:text-4xl text-white/95 font-light mb-6 leading-relaxed text-center bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent">
-    {backgroundImages[currentImageIndex].description}
-  </p>
-  
-  {/* Achievement Highlights */}
-  
-</div>
-
-
-
-{/* Trust Indicators */}
-<div className="bg-white/5 backdrop-blur-2xl rounded-3xl p-8 border border-white/10 shadow-2xl max-w-2xl mx-auto mb-12">
-  <div className="text-center">
-    <p className="text-white/80 text-lg font-medium mb-4 flex items-center justify-center gap-2">
-      <span className="text-2xl">🏆</span>
-      Trusted by 10,000+ Successful Students Worldwide
-      <span className="text-2xl">🌍</span>
-    </p>
-    <div className="flex flex-wrap justify-center gap-6 text-white/70 text-sm">
-      <span className="flex items-center gap-2">
-        <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-        Verified Results
-      </span>
-      <span className="flex items-center gap-2">
-        <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
-        Expert Tutors
-      </span>
-      <span className="flex items-center gap-2">
-        <span className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></span>
-        Money-Back Guarantee
-      </span>
-    </div>
-  </div>
-</div>
           {/* Image Navigation Dots */}
-          <div className="flex justify-center gap-3">
+          <div className="flex justify-center gap-2">
             {backgroundImages.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentImageIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
                   index === currentImageIndex 
                     ? 'bg-white scale-125 shadow-lg' 
                     : 'bg-white/50 hover:bg-white/70'
