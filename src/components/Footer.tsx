@@ -11,12 +11,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-10 w-10 rounded bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">N</span>
-              </div>
-              <span className="text-xl font-bold">Nova Exam Services</span>
-            </div>
+            <div className="flex items-center gap-3">
+          <img 
+            src="/nova2.png" 
+            alt="Nova Exam Services" 
+            className="h-16 w-auto max-h-12 object-contain sm:h-20 sm:max-h-16"
+          />
+        </div>
             <p className="text-muted-foreground mb-6 max-w-md">
               Professional English exam preparation services with expert guidance, 
               comprehensive mock tests, and personalized coaching to help you achieve 
