@@ -94,12 +94,14 @@ export default function BookingPage() {
                   </Label>
                   <div className="flex justify-center border rounded-lg p-4 bg-card">
                     <Calendar
-                      mode="single"
-                      selected={selectedDate}
-                      onSelect={setSelectedDate}
-                      className="rounded-md"
-                      disabled={(date) => date < new Date()}
-                    />
+  mode="single"
+  selected={selectedDate ?? undefined}
+  onSelect={(date) => setSelectedDate(date || new Date())}
+  required={true}
+  className="rounded-md"
+  disabled={(date) => date < new Date()}
+/>
+
                   </div>
                 </div>
 
