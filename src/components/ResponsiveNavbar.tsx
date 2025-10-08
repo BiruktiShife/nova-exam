@@ -23,7 +23,7 @@ export default function ResponsiveNavbar() {
           {/* REMOVED 'hidden lg:block' from the Link */}
           <Link href="/" className="block"> 
           <img 
-            src="/nova2.png" 
+            src="/Nova2.png" 
             alt="Nova Exam Services" 
             className="h-16 w-auto max-h-12 object-contain sm:h-20 sm:max-h-16"
           />

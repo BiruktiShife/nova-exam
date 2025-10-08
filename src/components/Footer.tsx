@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -13,7 +12,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3">
           <img 
-            src="/nova2.png" 
+            src="/Nova2.png" 
             alt="Nova Exam Services" 
             className="h-16 w-auto max-h-12 object-contain sm:h-20 sm:max-h-16"
           />
