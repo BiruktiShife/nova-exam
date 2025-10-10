@@ -26,12 +26,13 @@ export default function Hero() {
   ];
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
-    }, 3000);
+  const interval = setInterval(() => {
+    setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
+  }, 3000);
 
-    return () => clearInterval(interval);
-  }, []);
+  return () => clearInterval(interval);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
   return (
     <section className="relative h-[60vh] sm:h-[70vh] md:min-h-screen flex items-center justify-center overflow-hidden">
