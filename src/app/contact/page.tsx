@@ -107,7 +107,7 @@ export default function ContactPage() {
               Thank You for <span className="text-primary">Contacting Us</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-              Your message has been received successfully. We'll get back to you within 24 hours.
+              Your message has been received successfully. We&apo;ll get back to you within 24 hours.
             </p>
             <Button 
               onClick={() => setIsSubmitted(false)}
@@ -187,7 +187,7 @@ export default function ContactPage() {
                     <h4 className="font-semibold text-sm mb-1">Visit Our Center</h4>
                     <p className="text-sm text-muted-foreground">
                       123 Nova Street, Central Business District<br />
-                      Abuja, Nigeria
+                      AddisAbaba, Ethiopia.
                     </p>
                   </div>
                 </div>

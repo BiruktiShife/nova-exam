@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Clock, MapPin, User, Mail, Phone, Calendar as CalendarIcon, CheckCircle2, X, FileText, CheckCircle } from "lucide-react";
+import { Clock, MapPin, User, Mail, Phone, Calendar as CalendarIcon, CheckCircle2, X, FileText, CheckCircle, LucideIcon } from "lucide-react";
 import { useState, useEffect } from "react";
 
 interface ExamType {
@@ -91,7 +91,7 @@ export default function BookingPage() {
       });
 
       if (response.ok) {
-        const booking = await response.json();
+      await response.json();
         
         // Set booking details for success modal
         setBookingDetails({
@@ -123,9 +123,9 @@ export default function BookingPage() {
   };
 
   const getIconComponent = (iconName: string) => {
-    const icons: { [key: string]: any } = {
-      Clock, CheckCircle2, MapPin, User
-    };
+    const icons: Record<string, LucideIcon> = {
+  Clock, CheckCircle2, MapPin, User,
+};
     return icons[iconName] || User;
   };
 if (loading) {
@@ -462,7 +462,7 @@ if (loading) {
               </h2>
               
               <p className="text-muted-foreground mb-6">
-                Your exam has been successfully booked. We've sent a confirmation to your email.
+                Your exam has been successfully booked.
               </p>
 
               {/* Booking Details */}
@@ -497,10 +497,9 @@ if (loading) {
               <div className="bg-blue-50 rounded-lg p-4 mb-6 text-left">
                 <h4 className="font-semibold text-blue-900 mb-2 flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4" />
-                  What's Next?
+                  What&apo;s Next?
                 </h4>
                 <ul className="text-sm text-blue-800 space-y-1">
-                  <li>• Confirmation email within 24 hours</li>
                   <li>• Test center details will be provided</li>
                   <li>• Bring valid ID on exam day</li>
                   <li>• Arrive 30 minutes before your slot</li>
