@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  // Remove the output line or change to default
+  // output = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ExamType {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  duration  String
+  fee       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  bookings Booking[]
+}
+
+model TimeSlot {
+  id        String   @id @default(uuid())
+  time      String   @unique
+  createdAt DateTime @default(now())
+  
+  bookings Booking[]
+}
+
+model Feature {
+  id        String   @id @default(uuid())
+  icon      String
+  text      String
+  createdAt DateTime @default(now())
+}
+
+model Booking {
+  id          String   @id @default(uuid())
+  examTypeId  String
+  timeSlotId  String
+  date        DateTime
+  name        String
+  email       String
+  phone       String
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  examType ExamType @relation(fields: [examTypeId], references: [id])
+  timeSlot TimeSlot @relation(fields: [timeSlotId], references: [id])
+
+  @@map("bookings")
+}
+model Blog {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  date        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("blogs")
+}
+model Video {
+  id          String   @id @default(uuid())
+  title       String
+  youtubeUrl  String   // YouTube video ID or full URL
+  description String   // Your custom written description
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("videos")
+}

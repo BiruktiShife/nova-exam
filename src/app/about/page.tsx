@@ -71,9 +71,7 @@ export default function AboutUs() {
             transition={{ duration: 0.8 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm font-semibold">
-              🎓 About NovaPrep
-            </Badge>
+            
             <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
               Your Trusted Partner in <span className="text-primary">Exam Success</span>
             </h1>

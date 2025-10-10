@@ -23,11 +23,14 @@ export default function ResponsiveNavbar() {
         <div className="flex items-center gap-3">
           {/* REMOVED 'hidden lg:block' from the Link */}
           <Link href="/" className="block"> 
-          <Image 
-            src="/Nova2.png" 
-            alt="Nova Exam Services" 
-            className="h-16 w-auto max-h-12 object-contain sm:h-20 sm:max-h-16"
-          />
+          <Image
+  src="/Nova2.png"
+  alt="Nova Exam Services"
+  width={160}
+  height={60}
+  className="h-16 w-auto max-h-12 object-contain sm:h-20 sm:max-h-16"
+/>
+
           </Link> 
         </div>
 
@@ -35,8 +38,9 @@ export default function ResponsiveNavbar() {
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <Link href="/mock-tests" className="hover:text-primary transition-colors">Mock Tests</Link>
           <Link href="/booking" className="hover:text-primary transition-colors">Booking</Link>
-          <Link href="/contact" className="hover:text-primary transition-colors">Contact</Link>
           <Link href="/about" className="hover:text-primary transition-colors">About Us</Link>
+          <Link href="/blog-and-resources" className="hover:text-primary transition-colors">Blogs And Resources</Link>
+          <Link href="/contact" className="hover:text-primary transition-colors">Contact</Link>
         </nav>
 
         {/* Desktop Book Now Button */}

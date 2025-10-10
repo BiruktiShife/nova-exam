@@ -1,8 +1,47 @@
+"use client";
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
+
+  // Check authentication status on component mount
+  useEffect(() => {
+    const checkAuthStatus = () => {
+      const authStatus = localStorage.getItem('isLoggedIn');
+      setIsLoggedIn(authStatus === 'true');
+    };
+
+    checkAuthStatus();
+
+    // Listen for storage changes (if login happens in another tab/window)
+    window.addEventListener('storage', checkAuthStatus);
+    
+    return () => {
+      window.removeEventListener('storage', checkAuthStatus);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    // Clear authentication data
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
+    
+    // Redirect to home page
+    router.push('/');
+    
+    // Optional: Show logout confirmation
+    alert('You have been logged out successfully.');
+  };
+
+  const handleLogin = () => {
+    // This will navigate to login page
+    // The actual login logic is handled in the login page
+  };
 
   return (
     <footer className="bg-background border-t">
@@ -12,12 +51,14 @@ export default function Footer() {
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3">
-          <Image 
-            src="/Nova2.png" 
-            alt="Nova Exam Services" 
-            className="h-16 w-auto max-h-12 object-contain sm:h-20 sm:max-h-16"
-          />
-        </div>
+              <Image
+                src="/Nova2.png"
+                alt="Nova Exam Services"
+                width={160}
+                height={60}
+                className="h-16 w-auto max-h-12 object-contain sm:h-20 sm:max-h-16"
+              />
+            </div>
             <p className="text-muted-foreground mb-6 max-w-md">
               Professional English exam preparation services with expert guidance, 
               comprehensive mock tests, and personalized coaching to help you achieve 
@@ -87,6 +128,20 @@ export default function Footer() {
                   Contact Us
                 </Link>
               </li>
+              <li>
+                {isLoggedIn ? (
+                  <button 
+                    onClick={handleLogout}
+                    className="text-muted-foreground hover:text-primary transition-colors text-left w-full"
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  <Link href="/login" className="text-muted-foreground hover:text-primary transition-colors">
+                    Login
+                  </Link>
+                )}
+              </li>
             </ul>
           </div>
 
@@ -95,7 +150,7 @@ export default function Footer() {
             <h3 className="font-semibold text-lg mb-4">Exam Types</h3>
             <ul className="space-y-3">
               <li>
-                <a  className="text-muted-foreground hover:text-primary transition-colors">
+                <a className="text-muted-foreground hover:text-primary transition-colors">
                   IELTS Preparation
                 </a>
               </li>
@@ -105,7 +160,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a  className="text-muted-foreground hover:text-primary transition-colors">
+                <a className="text-muted-foreground hover:text-primary transition-colors">
                   PTE Academic
                 </a>
               </li>
@@ -115,14 +170,12 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a  className="text-muted-foreground hover:text-primary transition-colors">
+                <a className="text-muted-foreground hover:text-primary transition-colors">
                   TOEIC
                 </a>
               </li>
             </ul>
           </div>
-
-         
         </div>
       </div>
 

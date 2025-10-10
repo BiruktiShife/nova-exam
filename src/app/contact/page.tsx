@@ -6,11 +6,13 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Phone, Mail, Clock, Send, MessageCircle,  CheckCircle2 } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Send, MessageCircle, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 
 export default function ContactPage() {
   const [selectedTopic, setSelectedTopic] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const contactTopics = [
     { value: "booking", label: "Exam Booking & Scheduling" },
@@ -48,7 +50,77 @@ export default function ContactPage() {
     }
   ];
 
-  
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "b90454d5-1515-493a-97f6-c4f1081ec5de",
+          firstName: formData.get("firstName"),
+          lastName: formData.get("lastName"),
+          email: formData.get("email"),
+          phone: formData.get("phone"),
+          topic: selectedTopic,
+          message: formData.get("message"),
+          subject: `Contact Form: ${selectedTopic} - ${formData.get("firstName")} ${formData.get("lastName")}`,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setIsSubmitted(true);
+        form.reset();
+        setSelectedTopic("");
+        console.log("Form submitted successfully:", result);
+      } else {
+        console.error("Form submission failed:", result);
+        alert("There was an error submitting the form. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("There was an error submitting the form. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  if (isSubmitted) {
+    return (
+      <main className="min-h-screen bg-gradient-to-b from-background to-muted/30 py-8">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="text-center mb-12">
+            <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm font-semibold">
+              ✅ Message Sent
+            </Badge>
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+              Thank You for <span className="text-primary">Contacting Us</span>
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+              Your message has been received successfully. We'll get back to you within 24 hours.
+            </p>
+            <Button 
+              onClick={() => setIsSubmitted(false)}
+              className="h-12 text-base font-semibold"
+            >
+              Send Another Message
+            </Button>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-background to-muted/30 py-8">
       <div className="container mx-auto px-4 max-w-7xl">
@@ -142,8 +214,6 @@ export default function ContactPage() {
                 </div>
               </CardContent>
             </Card>
-
-            
           </div>
 
           {/* Middle Column - Contact Form */}
@@ -158,7 +228,7 @@ export default function ContactPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="p-6">
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="firstName" className="text-sm font-medium">
@@ -166,6 +236,7 @@ export default function ContactPage() {
                     </Label>
                     <Input 
                       id="firstName" 
+                      name="firstName"
                       placeholder="Jane" 
                       className="h-12"
                       required
@@ -177,6 +248,7 @@ export default function ContactPage() {
                     </Label>
                     <Input 
                       id="lastName" 
+                      name="lastName"
                       placeholder="Doe" 
                       className="h-12"
                       required
@@ -190,6 +262,7 @@ export default function ContactPage() {
                   </Label>
                   <Input 
                     id="email" 
+                    name="email"
                     type="email" 
                     placeholder="you@example.com" 
                     className="h-12"
@@ -203,6 +276,7 @@ export default function ContactPage() {
                   </Label>
                   <Input 
                     id="phone" 
+                    name="phone"
                     type="tel" 
                     placeholder="+234 800 000 0000" 
                     className="h-12"
@@ -213,7 +287,7 @@ export default function ContactPage() {
                   <Label htmlFor="topic" className="text-sm font-medium">
                     Inquiry Topic *
                   </Label>
-                  <Select value={selectedTopic} onValueChange={setSelectedTopic}>
+                  <Select value={selectedTopic} onValueChange={setSelectedTopic} required>
                     <SelectTrigger className="h-12">
                       <SelectValue placeholder="Select a topic" />
                     </SelectTrigger>
@@ -233,6 +307,7 @@ export default function ContactPage() {
                   </Label>
                   <Textarea 
                     id="message" 
+                    name="message"
                     placeholder="Please describe your inquiry in detail..." 
                     className="min-h-[140px] resize-none"
                     required
@@ -248,9 +323,19 @@ export default function ContactPage() {
                   type="submit" 
                   className="w-full h-12 text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                   size="lg"
+                  disabled={isSubmitting}
                 >
-                  <Send className="w-4 h-4 mr-2" />
-                  Send Message
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4 mr-2" />
+                      Send Message
+                    </>
+                  )}
                 </Button>
               </form>
             </CardContent>

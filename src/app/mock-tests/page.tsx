@@ -1,58 +1,16 @@
+'use client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { AnimatedContainer, AnimatedCard, AnimatedHero } from '@/components/AnimatedSections';
+import { useState, useEffect } from 'react';
+import { FileText } from 'lucide-react';
 
-// YouTube video data for TOEFL preparation
-const youtubeVideos = [
-  {
-    id: '1',
-    title: 'TOEFL Speaking Test - Full Practice with Answers',
-    youtubeId: 'rA5g7pHLtIs',
-    channel: 'Notefull TOEFL Mastery',
-    duration: '18:32',
-    category: 'Speaking'
-  },
-  {
-    id: '2',
-    title: 'TOEFL Writing Task 1 - Integrated Essay',
-    youtubeId: 'VKMjU8Arx6E',
-    channel: 'TST Prep TOEFL',
-    duration: '15:47',
-    category: 'Writing'
-  },
-  {
-    id: '3',
-    title: 'TOEFL Reading Section Strategies',
-    youtubeId: '6m4jGgItfMY',
-    channel: 'TOEFL with Andrea',
-    duration: '22:15',
-    category: 'Reading'
-  },
-  {
-    id: '4',
-    title: 'TOEFL Listening Practice Test',
-    youtubeId: 'sBiG6gTlG2E',
-    channel: 'Test Resources',
-    duration: '25:10',
-    category: 'Listening'
-  },
-  {
-    id: '5',
-    title: 'TOEFL Test Day Tips and Strategies',
-    youtubeId: 'W_XoD7JOu2M',
-    channel: 'GregMat TOEFL',
-    duration: '12:35',
-    category: 'Strategies'
-  },
-  {
-    id: '6',
-    title: 'TOEFL Vocabulary for High Scores',
-    youtubeId: 'qZ4kZ1hLk7M',
-    channel: 'English with Emma',
-    duration: '14:28',
-    category: 'Vocabulary'
-  }
-];
+interface Video {
+  id: string;
+  title: string;
+  youtubeUrl: string;
+  description: string;
+}
 
 const practiceLinks = [
   { 
@@ -70,10 +28,112 @@ const practiceLinks = [
     href: "https://www.pearsonpte.com/prepare",
     description: "Pearson PTE Academic preparation materials"
   },
- 
 ];
 
 export default function MockTestsPage() {
+  const [videos, setVideos] = useState<Video[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch videos from API
+  useEffect(() => {
+    async function fetchVideos() {
+      try {
+        const response = await fetch('/api/videos');
+        const data = await response.json();
+        setVideos(data);
+      } catch (error) {
+        console.error('Failed to fetch videos:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchVideos();
+  }, []);
+
+  // Extract YouTube video ID from URL
+  const getYouTubeEmbedUrl = (youtubeUrl: string) => {
+    // If it's already just the video ID
+    if (!youtubeUrl.includes('youtube.com') && !youtubeUrl.includes('youtu.be')) {
+      return `https://www.youtube.com/embed/${youtubeUrl}`;
+    }
+    
+    // If it's a full YouTube URL, extract the ID
+    const match = youtubeUrl.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+    return match ? `https://www.youtube.com/embed/${match[1]}` : youtubeUrl;
+  };
+
+  if (loading) {
+  return (
+    <main className="min-h-screen bg-gradient-to-b from-background to-muted/30 py-8">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <div className="flex flex-col items-center justify-center min-h-[70vh] space-y-8">
+          
+          {/* Mock Tests Animation */}
+          <div className="relative">
+            <div className="w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center border-2 border-blue-200">
+              <FileText className="w-10 h-10 text-blue-400 animate-pulse" />
+            </div>
+            <div className="absolute -inset-2 border-2 border-blue-100 rounded-2xl animate-ping"></div>
+          </div>
+
+          {/* Mock Tests Content */}
+          <div className="text-center space-y-4">
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-foreground to-blue-600 bg-clip-text text-transparent">
+              Loading Practice Materials
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Preparing mock tests and video resources...
+            </p>
+          </div>
+
+          {/* Resource Loading Progress */}
+          <div className="w-full max-w-2xl space-y-6">
+            <div className="flex items-center justify-between">
+              <span className="text-muted-foreground">TOEFL Practice Tests</span>
+              <div className="flex space-x-1">
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <span className="text-muted-foreground">IELTS Preparation Materials</span>
+              <div className="flex space-x-1">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce"></div>
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <span className="text-muted-foreground">Video Lessons</span>
+              <div className="flex space-x-1">
+                <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
+                <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+              </div>
+            </div>
+          </div>
+
+          {/* Video Grid Skeleton */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl mt-8">
+            {[1, 2, 3, 4, 5, 6].map((item) => (
+              <div key={item} className="bg-card border border-border rounded-xl p-4 animate-pulse">
+                <div className="aspect-video bg-muted rounded-lg mb-4"></div>
+                <div className="h-4 bg-muted rounded w-3/4 mb-2"></div>
+                <div className="h-3 bg-muted rounded w-1/2"></div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </div>
+    </main>
+  );
+}
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
       {/* Hero Section */}
@@ -141,32 +201,32 @@ export default function MockTestsPage() {
 
             {/* Video Grid */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {youtubeVideos.map((video, index) => (
+              {videos.map((video, index) => (
                 <AnimatedCard key={video.id} delay={index * 0.1}>
                   <Card className="h-full hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/30">
                     <CardHeader className="pb-3">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                          {video.category}
-                        </span>
-                        <span className="text-xs text-muted-foreground">{video.duration}</span>
-                      </div>
                       <CardTitle className="text-base leading-tight">{video.title}</CardTitle>
-                      <p className="text-sm text-muted-foreground mt-1">{video.channel}</p>
                     </CardHeader>
                     <CardContent>
-                      <div className="aspect-video rounded-lg overflow-hidden bg-muted mb-3">
+                      {/* YouTube Video Embed */}
+                      <div className="aspect-video rounded-lg overflow-hidden bg-muted mb-4">
                         <iframe
-                          src={`https://www.youtube.com/embed/${video.youtubeId}`}
+                          src={getYouTubeEmbedUrl(video.youtubeUrl)}
                           title={video.title}
                           className="w-full h-full"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
                         />
                       </div>
+                      
+                      {/* Your Custom Description */}
+                      <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                        {video.description}
+                      </p>
+                      
                       <Button asChild variant="outline" className="w-full">
                         <a 
-                          href={`https://www.youtube.com/watch?v=${video.youtubeId}`} 
+                          href={`https://www.youtube.com/watch?v=${video.youtubeUrl}`} 
                           target="_blank" 
                           rel="noopener noreferrer"
                         >
