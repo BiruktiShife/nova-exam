@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from "react";
-
+import Image from "next/image";
 export default function Hero() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -47,12 +47,13 @@ export default function Hero() {
             }`}
           >
             {/* Background Image */}
-            <img
-              src={image.src}
-              alt={image.title}
-              className="w-full h-full object-cover object-center"
-              loading="eager"
-            />
+            <Image
+  src={image.src}
+  alt={image.title}
+  fill
+  priority
+  className="object-cover object-center"
+/>
             {/* Dark overlay */}
             <div className="absolute inset-0 bg-black/50"></div>
           </div>
